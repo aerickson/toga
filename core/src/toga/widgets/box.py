@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import random
 import os
 
 from collections.abc import Iterable
@@ -8,16 +9,20 @@ from .base import StyleT, Widget
 
 
 # based on colors from https://davidmathlogic.com/colorblind
-ibm_pastel_palette = [
+pastel_palette = [
+    "#d0e2ed",  # very light blue
     "#b8d2e9",  # light blue
     "#f8ccb0",  # light orange
+    "#f6d3be",  # soft orange
     "#c7e7b2",  # light green
     "#f0b2d6",  # light pink
     "#e5dab0",  # light yellow
     "#d5c2ea",  # light lavender
-    "#b2e4e5"   # light teal
+    "#b2e4e5",  # light teal
+    "#e5e4af",  # light cream
+    "#bde2dc",   # soft turquoise
 ]
-
+random.shuffle(pastel_palette)
 
 class Box(Widget):
     _MIN_WIDTH = 0
@@ -41,14 +46,13 @@ class Box(Widget):
             # globals are gross, but ok when we're debugging
             global color_index
             try:
-                if color_index == len(ibm_pastel_palette) - 1:
+                if color_index == len(pastel_palette) - 1:
                     color_index = 0
                 else:
                     color_index += 1
             except NameError:
                 color_index = 0
-            selected_color = ibm_pastel_palette[color_index]
-            style.background_color = selected_color
+            style.background_color = pastel_palette[color_index]
 
         super().__init__(id=id, style=style)
 
