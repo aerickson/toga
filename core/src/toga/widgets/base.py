@@ -87,13 +87,10 @@ class Widget(Node):
     def __lt__(self, other: Widget) -> bool:
         return self.id < other.id
 
-    @property
-    def id(self) -> str:
-        """The DOM identifier for the widget.
-
-        This id can be used to target CSS directives.
-        """
-        return self._id
+    @property               
+    def id(self) -> str:          
+        """A unique identifier for the widget."""
+        return self._id  
 
     @property
     def tab_index(self) -> int | None:
