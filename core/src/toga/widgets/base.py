@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import random
+import os
+
 from builtins import id as identifier
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -14,6 +17,23 @@ if TYPE_CHECKING:
     from toga.window import Window
 
 StyleT = TypeVar("StyleT", bound=BaseStyle)
+
+
+# based on colors from https://davidmathlogic.com/colorblind
+pastel_palette = [
+    "#d0e2ed",  # very light blue
+    "#b8d2e9",  # light blue
+    "#f8ccb0",  # light orange
+    "#f6d3be",  # soft orange
+    "#c7e7b2",  # light green
+    "#f0b2d6",  # light pink
+    "#e5dab0",  # light yellow
+    "#d5c2ea",  # light lavender
+    "#b2e4e5",  # light teal
+    "#e5e4af",  # light cream
+    "#bde2dc",   # soft turquoise
+]
+random.shuffle(pastel_palette)
 
 
 class Widget(Node):
@@ -33,6 +53,21 @@ class Widget(Node):
         :param style: A style object. If no style is provided, a default style
             will be applied to the widget.
         """
+        # if layout debug mode, change bg color
+        if 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
+            # globals are gross, but ok when we're debugging
+            global color_index
+            try:
+                if color_index == len(pastel_palette) - 1:
+                    color_index = 0
+                else:
+                    color_index += 1
+            except NameError:
+                color_index = 0
+            if not style:
+                style = Pack()
+            style.background_color = pastel_palette[color_index]
+
         super().__init__(
             style=style if style else Pack(),
             applicator=TogaApplicator(self),
@@ -42,6 +77,7 @@ class Widget(Node):
         self._window: Window | None = None
         self._app: App | None = None
         self._impl: Any = None
+        self._use_debug_background = False
 
         self.factory = get_platform_factory()
 
@@ -53,7 +89,10 @@ class Widget(Node):
 
     @property
     def id(self) -> str:
-        """A unique identifier for the widget."""
+        """The DOM identifier for the widget.
+
+        This id can be used to target CSS directives.
+        """
         return self._id
 
     @property
