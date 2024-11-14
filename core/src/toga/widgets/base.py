@@ -55,18 +55,18 @@ class Widget(Node):
             will be applied to the widget.
         """
         # if the object has _USE_DEBUG_BACKGROUND=True and layout debug mode is on, change bg color
-        if (
-            hasattr(self, "_USE_DEBUG_BACKGROUND")
-            and self._USE_DEBUG_BACKGROUND
-            and "TOGA_DEBUG_LAYOUT" in environ
-            and environ["TOGA_DEBUG_LAYOUT"] == "1"
-        ):
-            if Widget._debug_color_index == len(debug_background_palette) - 1:
-                Widget._debug_color_index = 0
-            else:
-                Widget._debug_color_index += 1
-            style = style if style else Pack()
-            style.background_color = debug_background_palette[Widget._debug_color_index]
+        if hasattr(self, "_USE_DEBUG_BACKGROUND") and self._USE_DEBUG_BACKGROUND:
+            if "TOGA_DEBUG_LAYOUT" in environ and environ["TOGA_DEBUG_LAYOUT"] == "1":
+                if Widget._debug_color_index == len(debug_background_palette) - 1:
+                    Widget._debug_color_index = 0
+                else:
+                    Widget._debug_color_index += 1
+                style = style if style else Pack()
+                style.background_color = debug_background_palette[
+                    Widget._debug_color_index
+                ]
+        else:
+            self._USE_DEBUG_BACKGROUND = False
 
         super().__init__(
             style=style if style else Pack(),
@@ -77,9 +77,6 @@ class Widget(Node):
         self._window: Window | None = None
         self._app: App | None = None
         self._impl: Any = None
-        # is this useful?
-        if not hasattr(self, "_USE_DEBUG_BACKGROUND"):
-            self._USE_DEBUG_BACKGROUND = False
 
         self.factory = get_platform_factory()
 
