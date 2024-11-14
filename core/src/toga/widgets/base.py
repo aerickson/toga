@@ -61,8 +61,7 @@ class Widget(Node):
                 Widget._debug_color_index = 0
             else:
                 Widget._debug_color_index += 1
-            if not style:
-                style = Pack()
+            style = style if style else Pack()
             style.background_color = pastel_palette[Widget._debug_color_index]
 
         super().__init__(
