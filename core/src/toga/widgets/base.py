@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import random
 import os
-
+import random
 from builtins import id as identifier
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -31,7 +30,7 @@ pastel_palette = [
     "#d5c2ea",  # light lavender
     "#b2e4e5",  # light teal
     "#e5e4af",  # light cream
-    "#bde2dc",   # soft turquoise
+    "#bde2dc",  # soft turquoise
 ]
 random.shuffle(pastel_palette)
 
@@ -56,8 +55,12 @@ class Widget(Node):
             will be applied to the widget.
         """
         # if the object has _USE_DEBUG_BACKGROUND=True and layout debug mode is on, change bg color
-        if (hasattr(self, '_USE_DEBUG_BACKGROUND') and self._USE_DEBUG_BACKGROUND and
-            'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1'):
+        if (
+            hasattr(self, "_USE_DEBUG_BACKGROUND")
+            and self._USE_DEBUG_BACKGROUND
+            and "TOGA_DEBUG_LAYOUT" in os.environ
+            and os.environ["TOGA_DEBUG_LAYOUT"] == "1"
+        ):
             if Widget._debug_color_index == len(pastel_palette) - 1:
                 Widget._debug_color_index = 0
             else:
@@ -75,7 +78,7 @@ class Widget(Node):
         self._app: App | None = None
         self._impl: Any = None
         # is this useful?
-        if not hasattr(self, '_USE_DEBUG_BACKGROUND'):
+        if not hasattr(self, "_USE_DEBUG_BACKGROUND"):
             self._USE_DEBUG_BACKGROUND = False
 
         self.factory = get_platform_factory()
