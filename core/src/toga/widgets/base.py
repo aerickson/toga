@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import random
 from builtins import id as identifier
 from os import environ
+from random import shuffle
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from travertino.declaration import BaseStyle
@@ -19,7 +19,7 @@ StyleT = TypeVar("StyleT", bound=BaseStyle)
 
 
 # based on colors from https://davidmathlogic.com/colorblind
-pastel_palette = [
+debug_background_palette = [
     "#d0e2ed",  # very light blue
     "#b8d2e9",  # light blue
     "#f8ccb0",  # light orange
@@ -32,7 +32,7 @@ pastel_palette = [
     "#e5e4af",  # light cream
     "#bde2dc",  # soft turquoise
 ]
-random.shuffle(pastel_palette)
+shuffle(debug_background_palette)
 
 
 class Widget(Node):
@@ -61,12 +61,12 @@ class Widget(Node):
             and "TOGA_DEBUG_LAYOUT" in environ
             and environ["TOGA_DEBUG_LAYOUT"] == "1"
         ):
-            if Widget._debug_color_index == len(pastel_palette) - 1:
+            if Widget._debug_color_index == len(debug_background_palette) - 1:
                 Widget._debug_color_index = 0
             else:
                 Widget._debug_color_index += 1
             style = style if style else Pack()
-            style.background_color = pastel_palette[Widget._debug_color_index]
+            style.background_color = debug_background_palette[Widget._debug_color_index]
 
         super().__init__(
             style=style if style else Pack(),
