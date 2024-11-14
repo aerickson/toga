@@ -40,6 +40,8 @@ class Widget(Node):
     _MIN_WIDTH = 100
     _MIN_HEIGHT = 100
 
+    _debug_color_index = 0
+
     def __init__(
         self,
         id: str | None = None,
@@ -55,18 +57,17 @@ class Widget(Node):
         """
         # if layout debug mode, change bg color
         if hasattr(self, '_use_debug_background') and 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
-            # globals are gross, but ok when we're debugging
-            global color_index
             try:
-                if color_index == len(pastel_palette) - 1:
-                    color_index = 0
+                if Widget._debug_color_index == len(pastel_palette) - 1:
+                    Widget._debug_color_index = 0
                 else:
-                    color_index += 1
+                    Widget._debug_color_index += 1
             except NameError:
-                color_index = 0
+                # should be safe to remove now?
+                Widget._debug_color_index = 0
             if not style:
                 style = Pack()
-            style.background_color = pastel_palette[color_index]
+            style.background_color = pastel_palette[Widget._debug_color_index]
 
         super().__init__(
             style=style if style else Pack(),
