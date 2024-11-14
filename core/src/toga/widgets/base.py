@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import os
 import random
 from builtins import id as identifier
+from os import environ
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from travertino.declaration import BaseStyle
@@ -58,8 +58,8 @@ class Widget(Node):
         if (
             hasattr(self, "_USE_DEBUG_BACKGROUND")
             and self._USE_DEBUG_BACKGROUND
-            and "TOGA_DEBUG_LAYOUT" in os.environ
-            and os.environ["TOGA_DEBUG_LAYOUT"] == "1"
+            and "TOGA_DEBUG_LAYOUT" in environ
+            and environ["TOGA_DEBUG_LAYOUT"] == "1"
         ):
             if Widget._debug_color_index == len(pastel_palette) - 1:
                 Widget._debug_color_index = 0
