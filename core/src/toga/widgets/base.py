@@ -54,7 +54,7 @@ class Widget(Node):
             will be applied to the widget.
         """
         # if layout debug mode, change bg color
-        if 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
+        if hasattr(self, '_use_debug_background') and 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
             # globals are gross, but ok when we're debugging
             global color_index
             try:

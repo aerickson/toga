@@ -23,8 +23,10 @@ class Box(Widget):
         :param children: An optional list of children for to add to the Box.
         """
 
-        super().__init__(id=id, style=style)
+        # box widgets can use the debug background functionality
         self._use_debug_background = True
+
+        super().__init__(id=id, style=style)
 
         # Create a platform specific implementation of a Box
         self._impl = self.factory.Box(interface=self)
