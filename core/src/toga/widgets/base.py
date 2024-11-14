@@ -57,14 +57,10 @@ class Widget(Node):
         """
         # if layout debug mode, change bg color
         if hasattr(self, '_use_debug_background') and 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
-            try:
-                if Widget._debug_color_index == len(pastel_palette) - 1:
-                    Widget._debug_color_index = 0
-                else:
-                    Widget._debug_color_index += 1
-            except NameError:
-                # should be safe to remove now?
+            if Widget._debug_color_index == len(pastel_palette) - 1:
                 Widget._debug_color_index = 0
+            else:
+                Widget._debug_color_index += 1
             if not style:
                 style = Pack()
             style.background_color = pastel_palette[Widget._debug_color_index]
