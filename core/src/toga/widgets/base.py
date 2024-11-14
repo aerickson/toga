@@ -77,7 +77,9 @@ class Widget(Node):
         self._window: Window | None = None
         self._app: App | None = None
         self._impl: Any = None
-        self._use_debug_background = False
+        # is this useful?
+        if not hasattr(self, '_use_debug_background'):
+            self._use_debug_background = False
 
         self.factory = get_platform_factory()
 
