@@ -43,7 +43,7 @@ class SplitContainer(Widget):
             of the container. Defaults to both panels being empty.
         """
         # enable the debug background functionality
-        self._use_debug_background = True
+        self._USE_DEBUG_BACKGROUND = True
         super().__init__(id=id, style=style)
         self._content: list[SplitContainerContentT] = [None, None]
 

@@ -56,7 +56,7 @@ class Widget(Node):
             will be applied to the widget.
         """
         # if layout debug mode, change bg color
-        if hasattr(self, '_use_debug_background') and 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
+        if hasattr(self, '_USE_DEBUG_BACKGROUND') and 'TOGA_DEBUG_LAYOUT' in os.environ and os.environ['TOGA_DEBUG_LAYOUT'] == '1':
             if Widget._debug_color_index == len(pastel_palette) - 1:
                 Widget._debug_color_index = 0
             else:
@@ -74,8 +74,8 @@ class Widget(Node):
         self._app: App | None = None
         self._impl: Any = None
         # is this useful?
-        if not hasattr(self, '_use_debug_background'):
-            self._use_debug_background = False
+        if not hasattr(self, '_USE_DEBUG_BACKGROUND'):
+            self._USE_DEBUG_BACKGROUND = False
 
         self.factory = get_platform_factory()
 

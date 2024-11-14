@@ -393,7 +393,7 @@ class OptionContainer(Widget):
         :param on_select: Initial :any:`on_select` handler.
         """
         # enable the debug background functionality
-        self._use_debug_background = True
+        self._USE_DEBUG_BACKGROUND = True
         super().__init__(id=id, style=style)
         self._content = OptionList(self)
         self.on_select = None
