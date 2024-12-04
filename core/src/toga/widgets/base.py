@@ -57,13 +57,10 @@ class Widget(Node):
         # if the object has _USE_DEBUG_BACKGROUND=True and layout debug mode is on, change bg color
         if hasattr(self, "_USE_DEBUG_BACKGROUND") and self._USE_DEBUG_BACKGROUND:
             if "TOGA_DEBUG_LAYOUT" in environ and environ["TOGA_DEBUG_LAYOUT"] == "1":
-                if Widget._debug_color_index == len(debug_background_palette) - 1:
-                    Widget._debug_color_index = 0
-                else:
-                    Widget._debug_color_index += 1
+                Widget._debug_color_index += 1
                 style = style if style else Pack()
                 style.background_color = debug_background_palette[
-                    Widget._debug_color_index
+                    Widget._debug_color_index % len(debug_background_palette)
                 ]
         else:
             self._USE_DEBUG_BACKGROUND = False
