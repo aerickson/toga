@@ -54,7 +54,8 @@ class Widget(Node):
         :param style: A style object. If no style is provided, a default style
             will be applied to the widget.
         """
-        # if the object has _USE_DEBUG_BACKGROUND=True and layout debug mode is on, change bg color
+        # If the object has _USE_DEBUG_BACKGROUND=True and layout debug mode
+        # is on, change bg color.BufferError
         if getattr(self, "_USE_DEBUG_BACKGROUND", False):
             if environ.get("TOGA_DEBUG_LAYOUT") == "1":
                 Widget._debug_color_index += 1
