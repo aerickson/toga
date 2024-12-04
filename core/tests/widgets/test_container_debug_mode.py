@@ -43,7 +43,7 @@ def test_box_normal_background():
     """A Box has no default background."""
     # Disable layout debug mode
     with MonkeyPatch.context() as mp:
-        mp.setenv("TOGA_DEBUG_LAYOUT", "1")
+        mp.setenv("TOGA_DEBUG_LAYOUT", "0")
         box = toga.Box()
         # assert that the bg is default
         assert hasattr(box.style, "background_color")
